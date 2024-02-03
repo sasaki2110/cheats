@@ -2,8 +2,6 @@
 import { sql } from '@vercel/postgres'
 import { QueryResultRow } from '@vercel/postgres'
 
-type Row = { id: number; name: string, email: string, image: string, createdAt: string }
-
 async function table():Promise<QueryResultRow[] | undefined> {
   console.log("aaa")
 
@@ -36,6 +34,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
+      <p>{process.env.ENV_CHECK}</p>
       <p>ポストぐレスに手が届くか？</p>
       {rows.map((row) => (
         <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-cube border rounded-xl" key={1}>
