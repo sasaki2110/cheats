@@ -19,6 +19,20 @@ export default function Home() {
                 戻る
           </Link>
         </div>
+        <form>
+            <div className="grid grid-flow-row grid-cols-5 gap-2">
+            <div>aaa</div>
+            <input className="border col-span-4 w-4/5"/>
+            <div>bbb</div>
+            <input className="border col-span-4 w-4/5"/>
+            </div>
+            <div className="col-span-5 text-center pt-8">
+              <button type="submit"
+                      className="py-2 px-2 mx-1 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
+                      登録
+              </button>
+            </div>
+        </form>
       </div>
     </div>
   );
