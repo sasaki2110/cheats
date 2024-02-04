@@ -1,47 +1,65 @@
 'use client'
 
 import { useState , useEffect, Dispatch, SetStateAction} from 'react'
-import { getUsers } from './lib/getUsers'
+import { Key, GetCheatKeys } from './lib/dbaccess'
 
-async function table(setRows: Dispatch<SetStateAction<Row[] | undefined>>) {
-  console.log("aaa")
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-  const response = await getUsers()
+async function getKeys(setKeys: Dispatch<SetStateAction<Key[] | undefined>>) {
+  console.log("local getKyes in...")
 
-  const users = JSON.parse(JSON.stringify(response))
+  const keys = await GetCheatKeys()
 
-  setRows(users)
-
-  return undefined
-}
-
-type Row = {
-  id: string,
-  name: string,
-  email: string,
+  setKeys(keys)
 }
 
 export default function Home() {
   console.log("home start")
-  const [rows, setRows] = useState<Row[] | undefined>(undefined)
+  const [keys, setKeys] = useState<Key[] | undefined>(undefined)
+
+  console.log(keys)
+
+  //const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelect = (e) => {
+    console.log(JSON.stringify(e))
+  }
 
   useEffect(() => {
-    if(rows === undefined) {
-      table(setRows)
+    if(keys === undefined) {
+      console.log("getKeys Call")
+      getKeys(setKeys)
     }
-  }, [rows])
+  }, [keys])
 
   return (
     <div className="flex min-h-screen flex-col items-center p-24">
       <div>
         <>ポストぐレスに手が届くか？</>
-        {rows && rows.map((row) => (
-          <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-800 border rounded-xl" key={row.id}>
-            <p className="text-grey-800 text-sm" >{row.name}</p>
-            <p className="text-grey-800 text-lg">{row.email}</p>
-          </div> 
-        ))}
         <>もう、届いとるな。</>
+        <Select onValueChange={handleSelect}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="チートキーを選択してや！" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>チートキー</SelectLabel>
+
+              {keys && keys.map((key) => (
+                <SelectItem value={key.key} key={key.key}>{key.key}</SelectItem>
+              ))}
+
+              </SelectGroup>
+          </SelectContent>
+        </Select>
+
       </div>
     </div>
   );
