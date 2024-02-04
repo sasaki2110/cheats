@@ -105,6 +105,7 @@ export default function Home() {
             <p className="text-grey-cube text-sm" >{cheat.title}</p>
             <Textarea className="text-grey-cube text-lg w-100%"
                       value={cheat.cheat}
+                      spellCheck="false"
                       />
           </div> 
         ))}

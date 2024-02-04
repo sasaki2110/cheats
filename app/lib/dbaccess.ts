@@ -10,8 +10,16 @@ export type Key = {
   key: string,
 }
 
-// チート型
+// 表示用チート型
 export type DispCheat = {
+  title: string,
+  cheat: string,
+}
+
+// チート型
+export type Cheat = {
+  id: number,
+  key: string,
   title: string,
   cheat: string,
 }
@@ -42,4 +50,12 @@ export async function GetDispCheats(key:string) {
   const cheats:DispCheat[] = JSON.parse(JSON.stringify(data.rows))
 
   return cheats;
+}
+
+export async function InsCheat(cheat:Cheat) {
+  console.log("cheat = [", JSON.stringify(cheat), "]")
+
+  const data = await sql`insert into cheats (key, title, cheat) values (${cheat.key}, ${cheat.title}, ${cheat.cheat})`
+
+  console.log(JSON.stringify(data))
 }

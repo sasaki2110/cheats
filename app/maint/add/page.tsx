@@ -3,6 +3,11 @@
 import { useState } from "react";
 import Link from "next/link"
 import { Textarea } from "@/components/ui/textarea"
+import { Cheat, InsCheat } from '@/app/lib/dbaccess'
+
+async function insCheat(c:Cheat) {
+  await InsCheat(c)
+}
 
 /**
  * 主コンポーネント
@@ -15,29 +20,37 @@ export default function Home() {
   const[title, setTitle] = useState<string>('')
   const[cheat, setCheat] = useState<string>('')
 
-  // type event as React.FormEvent<HTMLFormElement>
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // prevent page refresh
     event.preventDefault();
 
-    console.log("key   = [", key, "]")
-    console.log("title = [", title, "]")
-    console.log("cheat = [", cheat, "]")
-  };
+    const isOk = confirm("登録するで？ほんまにいいんか？？？")
+
+    if(isOk) {
+      console.log("key   = [", key, "]")
+      console.log("title = [", title, "]")
+      console.log("cheat = [", cheat, "]")
+
+      const c:Cheat = {
+        id:0,
+        key:key,
+        title:title,
+        cheat:cheat,
+      }
+
+
+      const res = insCheat(c)
+
+      alert("登録したことにしといたるか。")
+    }
+  }
 
   const handleChangeKey = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // useStateの第二引数のメソッドを書く
-    // この中に引数[e]が入ってきて保存される
     setKey(e.target.value);
   };
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // useStateの第二引数のメソッドを書く
-    // この中に引数[e]が入ってきて保存される
     setTitle(e.target.value);
   };
   const handleChangeCheat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // useStateの第二引数のメソッドを書く
-    // この中に引数[e]が入ってきて保存される
     setCheat(e.target.value);
   };
 
@@ -66,6 +79,7 @@ export default function Home() {
             />
             <div>チート</div>
             <Textarea className="border col-span-4 w-4/5"
+                   spellCheck="false"
                    name="cheat"
                    onChange={handleChangeCheat}
             />
