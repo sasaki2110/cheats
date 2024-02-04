@@ -1,4 +1,5 @@
-h1.これはNEXT+Varcel Postgresで作る、cheats sheet参照アプリのプロジェクト
+これはNEXT+Varcel Postgresで作る、cheats sheet参照アプリのプロジェクト
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
