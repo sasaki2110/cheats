@@ -11,7 +11,7 @@ export type Key = {
 }
 
 // チート型
-export type Cheat = {
+export type DispCheat = {
   title: string,
   cheat: string,
 }
@@ -28,13 +28,18 @@ export async function GetCheatKeys() {
   return keys;
 }
 
-export async function GetCheatValues(key:string) {
+/**
+ * 表示用のチートを取得
+ * @param key 
+ * @returns 
+ */
+export async function GetDispCheats(key:string) {
   console.log("111 key = [" + key + "]")
   const data = await sql`select title, cheat from cheats where key = ${key}`
   console.log("222")
   console.log("data = [" , data, "]")
 
-  const cheats:Cheat[] = JSON.parse(JSON.stringify(data.rows))
+  const cheats:DispCheat[] = JSON.parse(JSON.stringify(data.rows))
 
   return cheats;
 }

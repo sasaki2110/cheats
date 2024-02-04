@@ -8,7 +8,8 @@
 'use client'
 
 import { useState , useEffect, Dispatch, SetStateAction} from 'react'
-import { Key, GetCheatKeys, Cheat, GetCheatValues } from './lib/dbaccess'
+import { Key, GetCheatKeys, DispCheat, GetDispCheats } from '@/app/lib/dbaccess'
+import Link from "next/link"
 
 import {
   Select,
@@ -35,10 +36,10 @@ async function getKeys(setKeys: Dispatch<SetStateAction<Key[] | undefined>>) {
   setKeys(keys)
 }
 
-async function getCheats(key:string, setCheats: Dispatch<SetStateAction<Cheat[] | undefined>>) {
+async function getCheats(key:string, setCheats: Dispatch<SetStateAction<DispCheat[] | undefined>>) {
   console.log("local getCheats in...")
 
-  const cheats = await GetCheatValues(key)
+  const cheats = await GetDispCheats(key)
 
   setCheats(cheats)
 }
@@ -54,7 +55,7 @@ export default function Home() {
   const [keys, setKeys] = useState<Key[] | undefined>(undefined)
 
   // チートキー用のステート
-  const [cheats, setCheats] = useState<Cheat[] | undefined>(undefined)
+  const [cheats, setCheats] = useState<DispCheat[] | undefined>(undefined)
 
 
   // セレクトが選択された時のハンドラ
@@ -75,8 +76,14 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center p-24 ">
-      <div className='w-3/4'>
+      <div className='w-4/5'>
         <h2>マイチートシート</h2>
+        <div className='text-right'>
+          <Link href="/maint/list" 
+                className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
+                管理画面
+          </Link>
+        </div>
         <Select onValueChange={HandleSelect}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="チートキーを選択してや！" />
@@ -96,7 +103,7 @@ export default function Home() {
         {cheats && cheats.map((cheat) => (
           <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-cube border rounded-xl" key={1}>
             <p className="text-grey-cube text-sm" >{cheat.title}</p>
-            <Textarea className="text-grey-cube text-lg w-3/4"
+            <Textarea className="text-grey-cube text-lg w-100%"
                       value={cheat.cheat}
                       />
           </div> 
