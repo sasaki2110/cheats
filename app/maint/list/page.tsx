@@ -1,6 +1,16 @@
 'use client'
 
+import { useState , useEffect, Dispatch, SetStateAction} from 'react'
+import { Cheat, GetAllCheats } from "@/app/lib/dbaccess"
 import Link from "next/link"
+
+async function getCheats(setCheats: Dispatch<SetStateAction<Cheat[] | undefined>>) {
+  console.log("local getCheats in...")
+
+  const cheats = await GetAllCheats()
+
+  setCheats(cheats)
+}
 
 /**
  * 主コンポーネント
@@ -8,6 +18,18 @@ import Link from "next/link"
  */
 export default function Home() {
   console.log("home start")
+
+  // 表示用チートのステート
+  const [cheats, setCheats] = useState<Cheat[] | undefined>(undefined)
+
+    // 初期にチートキーを呼び出すエフェクト
+    useEffect(() => {
+      if(cheats === undefined) {
+        console.log("getCheats Call")
+        getCheats(setCheats)
+      }
+    }, [cheats])
+  
 
   return (
     <div className="flex min-h-screen flex-col items-center p-24 ">

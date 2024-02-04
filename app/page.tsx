@@ -54,7 +54,7 @@ export default function Home() {
   // チートキー用のステート
   const [keys, setKeys] = useState<Key[] | undefined>(undefined)
 
-  // チートキー用のステート
+  // 表示用チートのステート
   const [cheats, setCheats] = useState<DispCheat[] | undefined>(undefined)
 
 

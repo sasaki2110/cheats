@@ -52,10 +52,36 @@ export async function GetDispCheats(key:string) {
   return cheats;
 }
 
+/**
+ * チートを１レコード挿入
+ * @param cheat 
+ */
 export async function InsCheat(cheat:Cheat) {
   console.log("cheat = [", JSON.stringify(cheat), "]")
 
   const data = await sql`insert into cheats (key, title, cheat) values (${cheat.key}, ${cheat.title}, ${cheat.cheat})`
 
   console.log(JSON.stringify(data))
+}
+
+export async function GetAllCheats(order:string = "", filter:string = "") {
+  let orderStr = ""
+  let filterStr = ""
+  if(order !== "") {
+    orderStr = "order by " + order + " "
+  }
+  if(filter !== "") {
+    filterStr = "where key like '%" + filter + "%' "
+  }
+  console.log("filter = [", filter, "]")
+  console.log("order  = [", order , "]")
+
+  //const data = await sql`select * from cheats ${filter} ${order}`
+  const data = await sql`select * from cheats`
+
+  console.log("data = [" , data, "]")
+
+  const cheats:Cheat[] = JSON.parse(JSON.stringify(data.rows))
+
+  return cheats;
 }
