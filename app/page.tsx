@@ -112,6 +112,12 @@ export default function Home() {
                       value={cheat.cheat}
                       spellCheck="false"
                       />
+            <div className="text-right pt-3">
+              <Link href={{pathname:"/maint/add", query:{id:cheat.id.toString()}}} 
+                    className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
+                    編集
+              </Link>
+            </div>
           </div> 
         ))}
 

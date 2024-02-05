@@ -18,13 +18,23 @@ async function updCheat(c:Cheat) {
   await UpdCheat(c)
 }
 
-async function getCheat(id:string, setDispCheat: Dispatch<SetStateAction<Cheat | undefined>>) {
+async function getCheat(id:string, 
+                        setDispCheat: Dispatch<SetStateAction<Cheat  | undefined>>,
+                        setKey:       Dispatch<SetStateAction<string>>, 
+                        setNo:        Dispatch<SetStateAction<string>>, 
+                        setTitle:     Dispatch<SetStateAction<string>>, 
+                        setCheat:     Dispatch<SetStateAction<string>>
+) {
   console.log("local getCheats in...")
 
   const cheat = await GetCheatById(id)
 
   if(cheat !== undefined) {
     setDispCheat(cheat)
+    setKey(cheat.key)
+    setNo(cheat.no)
+    setTitle(cheat.title)
+    setCheat(cheat.cheat)
   }
 }
 
@@ -55,27 +65,25 @@ export default function Home() {
 
   // この画面で対象とするチート（新規入力用に初期化）
   const[dispCheat,   setDispCheat]   = useState<Cheat | undefined>( undefined )
-
-    // 初期にチートキーを呼び出すエフェクト
-    useEffect(() => {
-      if(dispCheat===undefined) {
-          // 編集モードなら
-        if(id!==null) {
-            // DB を読み出し表示チートに設定
-            console.log("getCheats Call")
-            getCheat(id, setDispCheat)
-        } else {
-          const c:Cheat = {id:0, key:"", no:"", title:"", cheat:""}
-          setDispCheat(c)
-        }
-      }
-    }, [dispCheat, id])
-
-
   const[key,   setKey]   = useState<string>('')
   const[no,    setNo]    = useState<string>('')
   const[title, setTitle] = useState<string>('')
   const[cheat, setCheat] = useState<string>('')
+
+  // 初期にチートキーを呼び出すエフェクト
+  useEffect(() => {
+    if(dispCheat===undefined) {
+        // 編集モードなら
+      if(id!==null) {
+          // DB を読み出し表示チートに設定
+          console.log("getCheats Call")
+          getCheat(id, setDispCheat, setKey, setNo, setTitle, setCheat)
+      } else {
+        const c:Cheat = {id:0, key:"", no:"", title:"", cheat:""}
+        setDispCheat(c)
+      }
+    }
+  }, [dispCheat, id])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

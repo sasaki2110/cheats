@@ -12,6 +12,7 @@ export type Key = {
 
 // 表示用チート型
 export type DispCheat = {
+  id: number,
   title: string,
   cheat: string,
 }
@@ -44,7 +45,7 @@ export async function GetCheatKeys() {
  */
 export async function GetDispCheats(key:string) {
   console.log("111 key = [" + key + "]")
-  const data = await sql`select title, cheat from cheats where key = ${key}`
+  const data = await sql`select id, title, cheat from cheats where key = ${key} order by no`
   console.log("222")
   console.log("data = [" , data, "]")
 
