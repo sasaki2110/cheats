@@ -8,10 +8,14 @@ import { useState , useEffect, Dispatch, SetStateAction} from 'react'
 import Link from "next/link"
 import { useSearchParams } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea"
-import { Cheat, InsCheat, GetCheatById } from '@/app/lib/dbaccess'
+import { Cheat, InsCheat, UpdCheat, GetCheatById } from '@/app/lib/dbaccess'
 
 async function insCheat(c:Cheat) {
   await InsCheat(c)
+}
+
+async function updCheat(c:Cheat) {
+  await UpdCheat(c)
 }
 
 async function getCheat(id:string, setDispCheat: Dispatch<SetStateAction<Cheat | undefined>>) {
@@ -103,7 +107,11 @@ export default function Home() {
         cheat:cheat,
       }
       
-      const res = insCheat(c)
+      if(id === null){
+        const ins = insCheat(c)
+      } else {
+        const upd = updCheat(c)
+      }
 
       alert(insupd + "したことにしといたるか。")
     }

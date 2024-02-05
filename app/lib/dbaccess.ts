@@ -99,3 +99,17 @@ export async function GetCheatById(id:string) {
 
   return cheat;
 }
+
+export async function UpdCheat(cheat:Cheat) {
+
+  console.log("cheat = [", JSON.stringify(cheat), "]")
+
+  const data = await sql`update cheats
+                            set key=${cheat.key},
+                                no=${cheat.no},
+                                title=${cheat.title},
+                                cheat=${cheat.cheat}
+                          where id=${cheat.id.toString()}`
+
+  console.log(JSON.stringify(data))
+}
