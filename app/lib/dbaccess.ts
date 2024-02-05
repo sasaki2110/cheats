@@ -20,6 +20,7 @@ export type DispCheat = {
 export type Cheat = {
   id: number,
   key: string,
+  no: string,
   title: string,
   cheat: string,
 }
@@ -59,29 +60,42 @@ export async function GetDispCheats(key:string) {
 export async function InsCheat(cheat:Cheat) {
   console.log("cheat = [", JSON.stringify(cheat), "]")
 
-  const data = await sql`insert into cheats (key, title, cheat) values (${cheat.key}, ${cheat.title}, ${cheat.cheat})`
+  const data = await sql`insert into cheats (key, no, title, cheat) values (${cheat.key}, ${cheat.no}, ${cheat.title}, ${cheat.cheat})`
 
   console.log(JSON.stringify(data))
 }
 
-export async function GetAllCheats(order:string = "", filter:string = "") {
-  let orderStr = ""
-  let filterStr = ""
-  if(order !== "") {
-    orderStr = "order by " + order + " "
-  }
-  if(filter !== "") {
-    filterStr = "where key like '%" + filter + "%' "
-  }
-  console.log("filter = [", filter, "]")
-  console.log("order  = [", order , "]")
+/**
+ * チートを一覧用に全件取得
+ * @returns 
+ */
+export async function GetAllCheats() {
 
-  //const data = await sql`select * from cheats ${filter} ${order}`
-  const data = await sql`select * from cheats`
+  const data = await sql`select * from cheats order by key, no`
 
   console.log("data = [" , data, "]")
 
   const cheats:Cheat[] = JSON.parse(JSON.stringify(data.rows))
 
   return cheats;
+}
+
+/**
+ * チートを主キーで１件取得
+ * @param id 
+ * @returns 
+ */
+export async function GetCheatById(id:string) {
+
+  const data = await sql`select * from cheats where id = ${id}`
+
+  console.log("data = [" , data, "]")
+
+  if(data.rowCount===0) {
+    return undefined
+  }
+
+  const cheat:Cheat = JSON.parse(JSON.stringify(data.rows[0]))
+
+  return cheat;
 }

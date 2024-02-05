@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------------
+// 一覧画面
+// ---------------------------------------------------------------------
+
 'use client'
 
 import { useState , useEffect, Dispatch, SetStateAction} from 'react'
@@ -58,11 +62,12 @@ export default function Home() {
         <Table className='mt-4'>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-center min-w-[100px]">キー</TableHead>
+              <TableHead className="text-center min-w-[80px]" >キー</TableHead>
+              <TableHead className="text-center min-w-[30px]" >no</TableHead>
               <TableHead className="text-center min-w-[150px]">タイトル</TableHead>
               <TableHead className="text-center min-w-[200px]">チート（先頭20文字）</TableHead>
-              <TableHead className="text-center min-w-[60px]">編集</TableHead>
-              <TableHead className="text-center min-w-[60px]">削除</TableHead>
+              <TableHead className="text-center min-w-[60px]" >編集</TableHead>
+              <TableHead className="text-center min-w-[60px]" >削除</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -70,16 +75,17 @@ export default function Home() {
             {cheats && cheats.map((cheat) => (
               <TableRow key={cheat.id}>
                 <TableCell className="text-left">{cheat.key}</TableCell>
+                <TableCell className="text-right">{cheat.no}</TableCell>
                 <TableCell className="text-left">{cheat.title}</TableCell>
                 <TableCell className="text-left">{cheat.cheat.slice(0, 20)}</TableCell>
                 <TableCell className="text-center">
-                  <Link href="/detail/reservation/input" 
+                  <Link href={{pathname:"/maint/add", query:{id:cheat.id}}} 
                         className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
                     編集
                   </Link>
                 </TableCell>
                 <TableCell className="text-center">
-                  <Link href="/detail/reservation/input" 
+                  <Link href="#" 
                         className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
                     削除
                   </Link>
