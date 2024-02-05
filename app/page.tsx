@@ -90,21 +90,23 @@ export default function Home() {
                 管理画面
           </Link>
         </div>
-        <Select onValueChange={HandleSelect}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="チートキーを選択してや！" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>チートキー</SelectLabel>
+        <div className='mt-4 w-4/5'>
+          <Select onValueChange={HandleSelect} >
+            <SelectTrigger>
+              <SelectValue placeholder="知りたい技術スタックここにある？"/>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>技術スタックを選択</SelectLabel>
 
-              {keys && keys.map((key) => (
-                <SelectItem value={key.key} key={key.key}>{key.key}</SelectItem>
-              ))}
+                {keys && keys.map((key) => (
+                  <SelectItem value={key.key} key={key.key}>{key.key}</SelectItem>
+                ))}
 
-              </SelectGroup>
-          </SelectContent>
-        </Select>
+                </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
         {cheats && cheats.map((cheat) => (
           <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-cube border rounded-xl" key={1}>
