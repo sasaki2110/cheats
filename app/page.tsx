@@ -82,7 +82,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center p-24 ">
       <div className='w-4/5'>
-        <h2>マイチートシート</h2>
+        <div>マイチートシート</div>
+        <div>誰かが、いつか、俺の屍を踏み越えて行く肥しになれば・・・・</div>
         <div className='text-right'>
           <Link href="/maint/list" 
                 className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
