@@ -83,6 +83,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col items-center p-24 ">
       <div className='w-4/5'>
         <div>マイチートシート</div>
+        <div>これは正解でも道しるべでもない。おれが試行して失敗して、最後に残った使えそうなもの。</div>
         <div>誰かが、いつか、俺の屍を踏み越えて行く肥しになれば・・・・</div>
         <div className='text-right'>
           <Link href="/maint/list" 
