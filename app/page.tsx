@@ -34,16 +34,17 @@ import { Textarea } from "@/components/ui/textarea"
  * @param setKeys 
  */
 async function getKeys(setKeys: Dispatch<SetStateAction<Key[] | undefined>>) {
-  console.log("local getKyes in...")
-
   const keys = await GetCheatKeys()
 
   setKeys(keys)
 }
 
+/**
+ * 表示用チートを取得
+ * @param key 
+ * @param setCheats 
+ */
 async function getCheats(key:string, setCheats: Dispatch<SetStateAction<DispCheat[] | undefined>>) {
-  console.log("local getCheats in...")
-
   const cheats = await GetDispCheats(key)
 
   setCheats(cheats)
@@ -54,27 +55,21 @@ async function getCheats(key:string, setCheats: Dispatch<SetStateAction<DispChea
  * @returns 
  */
 export default function Home() {
-  console.log("home start")
-
   // チートキー用のステート
   const [keys, setKeys] = useState<Key[] | undefined>(undefined)
 
   // 表示用チートのステート
   const [cheats, setCheats] = useState<DispCheat[] | undefined>(undefined)
 
-
   // セレクトが選択された時のハンドラ
-  const HandleSelect = (e:string) => {
+  const handleSelect = (e:string) => {
     // ここでチートを呼び出し、画面表示
-    console.log(e)
-    console.log("getKeys Call")
     getCheats(e, setCheats)
   }
 
   // 初期にチートキーを呼び出すエフェクト
   useEffect(() => {
     if(keys === undefined) {
-      console.log("getKeys Call")
       getKeys(setKeys)
     }
   }, [keys])
@@ -86,13 +81,18 @@ export default function Home() {
         <div>これは正解でも道しるべでもない。おれが試行して失敗して、最後に残った使えそうなもの。</div>
         <div>誰かが、いつか、俺の屍を踏み越えて行く肥しになれば・・・・</div>
         <div className='text-right'>
+          <Link href="/maint/add" 
+                className="py-2 px-2 mx-1 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
+                新規登録
+          </Link>
+          　
           <Link href="/maint/list" 
                 className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
                 管理画面
           </Link>
         </div>
         <div className='mt-4 w-4/5'>
-          <Select onValueChange={HandleSelect} >
+          <Select onValueChange={handleSelect} >
             <SelectTrigger>
               <SelectValue placeholder="知りたい技術スタックここにある？"/>
             </SelectTrigger>

@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------
-// 新規画面
+// 新規・更新画面
 // ---------------------------------------------------------------------
 
 'use client'
@@ -10,14 +10,31 @@ import { useSearchParams } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea"
 import { Cheat, InsCheat, UpdCheat, GetCheatById } from '@/app/lib/dbaccess'
 
+/**
+ * １行挿入
+ * @param c 
+ */
 async function insCheat(c:Cheat) {
   await InsCheat(c)
 }
 
+/**
+ * １行更新
+ * @param c 
+ */
 async function updCheat(c:Cheat) {
   await UpdCheat(c)
 }
 
+/**
+ * １行取得
+ * @param id 
+ * @param setDispCheat 
+ * @param setKey 
+ * @param setNo 
+ * @param setTitle 
+ * @param setCheat 
+ */
 async function getCheat(id:string, 
                         setDispCheat: Dispatch<SetStateAction<Cheat  | undefined>>,
                         setKey:       Dispatch<SetStateAction<string>>, 
@@ -25,7 +42,6 @@ async function getCheat(id:string,
                         setTitle:     Dispatch<SetStateAction<string>>, 
                         setCheat:     Dispatch<SetStateAction<string>>
 ) {
-  console.log("local getCheats in...")
 
   const cheat = await GetCheatById(id)
 
@@ -43,14 +59,9 @@ async function getCheat(id:string,
  * @returns 
  */
 export default function Home() {
-  console.log("home start")
-
   // 起動パラメータ取得
   const searchParams = useSearchParams()
   const id = searchParams.get("id")
-
-  // id===null は新規モード。じゃなければ編集モード
-  console.log("id は [", id, "]です")
 
   let dispTitle:string
   let dispButton:string
@@ -76,7 +87,6 @@ export default function Home() {
         // 編集モードなら
       if(id!==null) {
           // DB を読み出し表示チートに設定
-          console.log("getCheats Call")
           getCheat(id, setDispCheat, setKey, setNo, setTitle, setCheat)
       } else {
         const c:Cheat = {id:0, key:"", no:"", title:"", cheat:""}
@@ -85,6 +95,10 @@ export default function Home() {
     }
   }, [dispCheat, id])
 
+  /**
+   * 登録・更新ボタンクリックのハンドラー
+   * @param event 
+   */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -98,11 +112,6 @@ export default function Home() {
     const isOk = confirm(insupd + "するで？ほんまにいいんか？？？")
 
     if(isOk) {
-      console.log("key   = [", key, "]")
-      console.log("no    = [", no, "]")
-      console.log("title = [", title, "]")
-      console.log("cheat = [", cheat, "]")
-
       let updateId = 0
       if(dispCheat!==undefined) updateId = dispCheat.id
 
@@ -125,6 +134,7 @@ export default function Home() {
     }
   }
 
+  // めんどくさいけど、１カラム毎にステートを持って、onChangeで設定
   const handleChangeKey = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKey(e.target.value);
   };
@@ -143,7 +153,7 @@ export default function Home() {
       <div className='w-4/5'>
         <h2>マイチートシート {dispTitle}</h2>
         <div className='text-right'>
-          <Link href="/maint/list" 
+          <Link href="/" 
                 className="py-2 px-2 mx-1 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
                 戻る
           </Link>

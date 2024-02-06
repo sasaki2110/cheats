@@ -31,7 +31,6 @@ export type Cheat = {
  */
 export async function GetCheatKeys() {
   const data = await sql`select distinct key from cheats order by key`
-  console.log("data = [" , data, "]")
 
   const keys:Key[] = JSON.parse(JSON.stringify(data.rows))
 
@@ -44,10 +43,7 @@ export async function GetCheatKeys() {
  * @returns 
  */
 export async function GetDispCheats(key:string) {
-  console.log("111 key = [" + key + "]")
   const data = await sql`select id, title, cheat from cheats where key = ${key} order by no`
-  console.log("222")
-  console.log("data = [" , data, "]")
 
   const cheats:DispCheat[] = JSON.parse(JSON.stringify(data.rows))
 
@@ -59,11 +55,7 @@ export async function GetDispCheats(key:string) {
  * @param cheat 
  */
 export async function InsCheat(cheat:Cheat) {
-  console.log("cheat = [", JSON.stringify(cheat), "]")
-
   const data = await sql`insert into cheats (key, no, title, cheat) values (${cheat.key}, ${cheat.no}, ${cheat.title}, ${cheat.cheat})`
-
-  console.log(JSON.stringify(data))
 }
 
 /**
@@ -73,8 +65,6 @@ export async function InsCheat(cheat:Cheat) {
 export async function GetAllCheats() {
 
   const data = await sql`select * from cheats order by key, no`
-
-  console.log("data = [" , data, "]")
 
   const cheats:Cheat[] = JSON.parse(JSON.stringify(data.rows))
 
@@ -90,8 +80,6 @@ export async function GetCheatById(id:string) {
 
   const data = await sql`select * from cheats where id = ${id}`
 
-  console.log("data = [" , data, "]")
-
   if(data.rowCount===0) {
     return undefined
   }
@@ -101,9 +89,11 @@ export async function GetCheatById(id:string) {
   return cheat;
 }
 
+/**
+ * チートを１行更新
+ * @param cheat 
+ */
 export async function UpdCheat(cheat:Cheat) {
-
-  console.log("cheat = [", JSON.stringify(cheat), "]")
 
   const data = await sql`update cheats
                             set key=${cheat.key},
@@ -112,5 +102,17 @@ export async function UpdCheat(cheat:Cheat) {
                                 cheat=${cheat.cheat}
                           where id=${cheat.id.toString()}`
 
-  console.log(JSON.stringify(data))
 }
+
+/**
+ * チートを１行削除
+ * @param id 
+ * @returns 
+ */
+export async function DelCheatById(id:string) {
+
+  await sql`delete from cheats where id = ${id}`
+
+  return;
+}
+
