@@ -110,7 +110,7 @@ export default function Home() {
         </div>
 
         {cheats && cheats.map((cheat) => (
-          <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-cube border rounded-xl" key={1}>
+          <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-50 border rounded-xl" key={1}>
             <p className="text-grey-cube text-sm" >{cheat.title}</p>
             <Textarea className="text-base mt-1 w-100%"
                       value={cheat.cheat}
