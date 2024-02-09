@@ -13,6 +13,7 @@ export type Key = {
 // 表示用チート型
 export type DispCheat = {
   id: number,
+  no: string,
   title: string,
   cheat: string,
 }
@@ -43,7 +44,7 @@ export async function GetCheatKeys() {
  * @returns 
  */
 export async function GetDispCheats(key:string) {
-  const data = await sql`select id, title, cheat from cheats where key = ${key} order by no`
+  const data = await sql`select id, no, title, cheat from cheats where key = ${key} order by no`
 
   const cheats:DispCheat[] = JSON.parse(JSON.stringify(data.rows))
 
