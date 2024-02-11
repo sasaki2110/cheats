@@ -155,7 +155,7 @@ export default function Home() {
           <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-50 border rounded-xl" key={cheat.id}>
             <div className="grid justify-between grid-flow-col">
               <p className="text-grey-cube text-sm" >{cheat.no + ". " + cheat.title}</p>
-              <p className="text-grey-cube text-sm" >upd_at:{cheat.updated_at}</p>
+              <p className="text-grey-cube text-sm" >更新日：{cheat.updated_at}</p>
             </div>
             <Textarea className="text-base mt-1 w-100%"
                       value={cheat.cheat}

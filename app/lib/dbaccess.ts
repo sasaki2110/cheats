@@ -45,7 +45,7 @@ export async function GetCheatKeys() {
  * @returns 
  */
 export async function GetDispCheats(key:string) {
-  const data = await sql`select id, no, title, cheat, to_char(updated_at + INTERVAL '9 hours', 'YYYY/MM/DD HH24:MI:SS') as updated_at from cheats where key = ${key} order by no`
+  const data = await sql`select id, no, title, cheat, to_char(updated_at + INTERVAL '9 hours', 'YYYY/MM/DD') as updated_at from cheats where key = ${key} order by no`
 
   const cheats:DispCheat[] = JSON.parse(JSON.stringify(data.rows))
 
