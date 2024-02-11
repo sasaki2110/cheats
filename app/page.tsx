@@ -118,9 +118,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center p-24 ">
       <div className='w-4/5'>
-        <div>マイチートシート</div>
-        <div>これは正解でも道しるべでもない。おれが試行して失敗して、最後に残った使えそうなもの。</div>
-        <div>誰かが、いつか、俺の屍を踏み越えて行く肥しになれば・・・・</div>
+        <div className="text-xl">マイチートシート</div>
+{/*         <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-50 border rounded-xl">*/}
+        <div className="py-2 my-1 px-4 mb-4 bg-gray-50 border rounded-xl">
+          <div>日々の作業でコピペするコマンドやコーディング例、ハマりポイントなどを技術スタック別に記述していく。</div>
+          <div>主目的は、生産性を高めるためにコピペする参考をすぐに探す事で、ナレッジの蓄積は二次的目的。</div>
+          <div>最終的には、ユーザー別でナレッジやチートを登録し、それを複数ユーザーが共有し、他人の良い知見を学ぶ（パクる）土台にできれば・・・・</div>
+        </div>
         <div className='text-right'>
           <Link href="/maint/add" 
                 className="py-2 px-2 mx-1 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
@@ -154,8 +158,11 @@ export default function Home() {
         {cheats && cheats.map((cheat) => (
           <div className="mx-2 md:mx-8 my-4 md:my-8 px-2 md:px-8 py-4 md:py-8 bg-gray-50 border rounded-xl" key={cheat.id}>
             <div className="grid justify-between grid-flow-col">
-              <p className="text-grey-cube text-sm" >{cheat.no + ". " + cheat.title}</p>
-              <p className="text-grey-cube text-sm" >更新日：{cheat.updated_at}</p>
+              <p className="text-grey-cube text-xl" >{cheat.no + ". " + cheat.title}</p>
+              <div>
+                <p className="text-grey-cube text-sm" >登録日：{cheat.created_at}</p>
+                <p className="text-grey-cube text-sm" >更新日：{cheat.updated_at}</p>
+              </div>
             </div>
             <Textarea className="text-base mt-1 w-100%"
                       value={cheat.cheat}
