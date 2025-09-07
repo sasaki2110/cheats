@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { unstable_noStore as noStore } from 'next/cache'
 import { GetCheatById } from '@/app/lib/dbaccess'
 import { EditForm } from '@/components/EditForm'
 import { insCheat, updCheat } from '@/app/lib/actions'
@@ -8,6 +9,7 @@ type PageProps = {
 }
 
 export default async function Page({ searchParams }: PageProps) {
+  noStore()
   const id = searchParams.id as string | undefined
 
   let cheat = null
