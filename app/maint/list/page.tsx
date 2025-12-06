@@ -11,6 +11,8 @@ import {
 import { DeleteButton } from "@/components/DeleteButton"
 import { delCheat } from "@/app/lib/actions"
 
+export const dynamic = 'force-dynamic'
+
 export default async function ListPage() {
   const cheats = await GetAllCheats()
 

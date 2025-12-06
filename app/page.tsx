@@ -3,6 +3,8 @@ import { getCheats, delCheat } from '@/app/lib/actions'
 import Link from "next/link"
 import { CheatSheet } from '@/components/CheatSheet'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * 主コンポーネント
  * @returns
