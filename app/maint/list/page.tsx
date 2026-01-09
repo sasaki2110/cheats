@@ -51,7 +51,7 @@ export default async function ListPage() {
                 <TableCell className="text-left">{cheat.title}</TableCell>
                 <TableCell className="text-left">{cheat.cheat.slice(0, 20)}</TableCell>
                 <TableCell className="text-center">
-                  <Link href={{pathname:"/maint/add", query:{id:cheat.id}}}
+                  <Link href={`/maint/add?id=${cheat.id}`}
                         className="py-2 px-2 rounded-lg text-green-700 border border-green-700 hover:shadow-teal-md hover:bg-green-700 hover:text-white transition-all outline-none " >
                     編集
                   </Link>

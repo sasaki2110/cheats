@@ -6,11 +6,12 @@ import { insCheat, updCheat } from '@/app/lib/actions'
 export const dynamic = 'force-dynamic'
 
 type PageProps = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  const id = searchParams.id as string | undefined
+  const params = await searchParams
+  const id = params.id as string | undefined
 
   let cheat = null
   if (id) {
